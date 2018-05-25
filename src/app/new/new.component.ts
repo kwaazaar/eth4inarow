@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Web3Service} from '../util/web3.service';
 
 declare let require: any;
-const contract_artifacts = require('../../../../build/contracts/fourInARow.json');
+const contract_artifacts = require('../../../build/contracts/FourInARow.json');
 
 @Component({
   selector: 'app-new',
