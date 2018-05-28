@@ -3,14 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { NewComponent } from './new/new.component';
-import { JoinComponent } from './join/join.component';
 import { GameComponent } from './game/game.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'new', component: NewComponent },
-  { path: 'join', component: JoinComponent },
   { path: 'game', component: GameComponent },
+  { path: 'join', redirectTo: '/new', pathMatch: 'prefix' },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
