@@ -3,8 +3,7 @@ pragma solidity ^0.4.16;
 contract FourInARow {
 	struct Game {
 		address[2] Players;
-		bytes32[2] Moves;
-		uint256[2] NextMoveIndexes;
+		uint8[][2] Moves;
 	}
 	
 	mapping (uint8=>Game) games;
@@ -25,13 +24,9 @@ contract FourInARow {
 		players[1] = address(0); // p2 (joins later)
 		games[gameid].Players = players;
 
-		bytes32[2] memory moves;
-		games[gameid].Moves = moves;
-
-		uint256[2] memory nextMoveIndexes;
-		nextMoveIndexes[0] = 0;
-		nextMoveIndexes[1] = 0;
-		games[gameid].NextMoveIndexes = nextMoveIndexes;
+		// Todo: check if moves-array really has to be initialized (think not)
+		games[gameid].Moves[0] = new uint8[](0);
+		games[gameid].Moves[1] = new uint8[](0);
 
 		return gameid;
 	}
@@ -57,20 +52,18 @@ contract FourInARow {
 		revert(); // throw (not a player in this game)
 	}
 
-	event Moved(uint8 indexed _gameId, int8 _playerIndex, uint256 _colNr);
+	event Moved(uint8 indexed _gameId, uint8 _playerIndex, uint8 _colNr);
 
-	function makeMove(uint8 gameid, uint256 col) public returns(bool isWinner) {
+	function makeMove(uint8 gameid, uint8 col) public returns(bool isWinner) {
 		require(gameid >= 0);
 		require(gameid < (gameCount - 1));
 		require(col <= 7);
 
 		uint8 playerIndex = getPlayerIndex(gameid);
-		uint256 nextMoveIndex = games[gameid].NextMoveIndexes[playerIndex];
-		games[gameid].NextMoveIndexes[playerIndex]++;
-		bytes32 moves = games[gameid].Moves[playerIndex];
-		byte[] memory move = new byte[](1);
-		move[0] = col;
-		//moves[nextMoveIndex] = move;
-		return false;
+		games[gameid].Moves[playerIndex].push(col);
+		Moved(gameid, playerIndex, col);
+		
+		// todo: return if winner
+		return (col == 2);
 	}
 }
