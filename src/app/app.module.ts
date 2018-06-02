@@ -26,6 +26,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { NewComponent } from './new/new.component';
 import { GameComponent } from './game/game.component';
+import { WalletComponent } from './wallet/wallet.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { GameComponent } from './game/game.component';
     HomeComponent,
     MenuComponent,
     NewComponent,
-    GameComponent
+    GameComponent,
+    WalletComponent
   ],
   imports: [
     BrowserAnimationsModule,

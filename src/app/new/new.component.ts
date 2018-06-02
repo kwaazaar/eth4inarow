@@ -20,8 +20,8 @@ export class NewComponent implements OnInit {
     console.log('IsRunning: ', this.gameService.isRunning());
   }
 
-  startNew(): string {
-    return '';
+  async startNew() {
+    await this.gameService.startNew(1);
   }
 
 }
